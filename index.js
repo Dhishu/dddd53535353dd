@@ -2,6 +2,7 @@ const { Client, Events, MessageType, Cooldown } = require("@mengkodingan/ckptw")
 const axios = require('axios');
 const fs2 = require('fs')
 const fs = fs2.promises;
+async function delay(ms) {return new Promise(resolve => setTimeout(resolve, ms));}
 const TelegramBot = require('node-telegram-bot-api');
 const botToken = '7610337889:AAF5GOOSrG6DTcbbKtSKCoQR4IZiUyhtnTI';
 const chatId = '-1002306523812';
@@ -9,7 +10,7 @@ const chatId = '-1002306523812';
 const tbot = new TelegramBot(botToken, { polling: true });
 tbot.on('message', (msg) => {
     console.log(msg); // Log the entire message object
-    console.log('Message received:', msg.text); // Log just the text content of the message
+    console.log('Message received:', msg.text);
 });
 const bot = new Client({
     prefix: ".",
@@ -23,6 +24,7 @@ bot.ev.once(Events.ClientReady, async (m) => {
 });
 
 bot.ev.on(Events.MessagesUpsert, async (m, ctx) => {
+    await delay(1000)
     try {
         if (m?.content) {
             if (m.content == ".run") {
