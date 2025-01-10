@@ -5,7 +5,7 @@ const fs = fs2.promises;
 const TelegramBot = require('node-telegram-bot-api');
 const botToken = '7610337889:AAF5GOOSrG6DTcbbKtSKCoQR4IZiUyhtnTI';
 const chatId = '-1002306523812';
-async function delay(ms) {return new Promise(resolve => setTimeout(resolve, ms));}
+
 const tbot = new TelegramBot(botToken, { polling: true });
 tbot.on('message', (msg) => {
     console.log(msg); // Log the entire message object
@@ -27,7 +27,6 @@ bot.ev.on(Events.MessagesUpsert, async (m, ctx) => {
         if (m?.content) {
             if (m.content == ".run") {
                 await fs.writeFile('group.txt', ctx.id);
-                await delay(1000);
                 await ctx.react(ctx.id, "✅");
                 return;
             }
@@ -50,7 +49,6 @@ bot.ev.on(Events.MessagesUpsert, async (m, ctx) => {
                             caption: m.content || ''
                         });
                         fs2.unlinkSync(filePath);
-                        await delay(1000);
                         ctx.react(ctx.id, "✅");
                         console.log('File sent successfully!');
                     } catch (error) {
@@ -75,8 +73,7 @@ bot.ev.on(Events.MessagesUpsert, async (m, ctx) => {
         });
 
         fs2.unlinkSync(filepath);
-        await delay(1000);
-        await ctx.react(ctx.id, "✅");
+        ctx.react(ctx.id, "✅");
         console.log('File sent successfully!');
     } catch (error) {
         ctx.react(ctx.id, "❌");
@@ -87,8 +84,7 @@ bot.ev.on(Events.MessagesUpsert, async (m, ctx) => {
                 if (ctx.getMessageType() === 'conversation' || m.content) {
                     try {
                         await tbot.sendMessage(chatId, ctx.msg.content || m.content || 'msg');
-                        await delay(1000);
-                        await ctx.react(ctx.id, "✅");
+                        ctx.react(ctx.id, "✅");
                     } catch (error) {
                         ctx.react(ctx.id, "❌");
                         console.error('Error sending message:', error);
