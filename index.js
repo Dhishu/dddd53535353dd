@@ -1,3 +1,6 @@
+globalThis.crypto = require('crypto');
+console.log("🚀 Bot Starting...");
+
 const { Client, Events, MessageType, Cooldown } = require("@mengkodingan/ckptw");
 const axios = require('axios');
 const fs2 = require('fs')
