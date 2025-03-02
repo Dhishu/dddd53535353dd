@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const { Client, Events, MessageType, Cooldown } = require("@mengkodingan/ckptw");
 const axios = require('axios');
 const fs2 = require('fs')
