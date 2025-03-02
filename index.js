@@ -36,7 +36,7 @@ bot.ev.on(Events.MessagesUpsert, async (m, ctx) => {
                 return;
             }
         }
-      console.log(JSON.stringify(m))
+      console.log(m)
 
         if (ctx.isGroup()) {
             const g = await fs.readFile('group.txt', 'utf-8'); // Read as a string
