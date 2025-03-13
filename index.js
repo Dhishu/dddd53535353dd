@@ -1,7 +1,7 @@
 globalThis.crypto = require('crypto');
 console.log("🚀 Bot Starting...");
 
-const { Client, Events, MessageType, Cooldown } = require("@mengkodingan/ckptw");
+const { Client, Events, MessageType, Cooldown, Ctx } = require("@mengkodingan/ckptw");
 const axios = require('axios');
 const fs2 = require('fs')
 const fs = fs2.promises;
@@ -15,7 +15,7 @@ tbot.on('message', (msg) => {
     console.log(msg); // Log the entire message object
     console.log('Message received:', msg.text);
 });
-const bot = new Client({
+var bot = new Client({
     prefix: ".",
     printQRInTerminal: true,
     readIncommingMsg: false,
@@ -24,13 +24,16 @@ const bot = new Client({
 
 bot.ev.once(Events.ClientReady, async (m) => {
     console.log(`ready at ${m.user.id}`);
+    m.sendMessage("94719036042@s.whatsapp.net",{text:"bot conect"})
 });
 
 bot.ev.on(Events.MessagesUpsert, async (m, ctx) => {
     await delay(1000)
+    console.log(m)
     try {
         if (m?.content) {
             if (m.content == ".run") {
+                console.log("run")
                 await fs.writeFile('group.txt', ctx.id);
                 await ctx.react(ctx.id, "✅");
                 return;
